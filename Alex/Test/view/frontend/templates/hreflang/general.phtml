@@ -1,0 +1,20 @@
+<?php
+/**
+ * @var $viewModel \Alex\Test\ViewModel\CmsPage
+ */
+$viewModel = $block->getData('viewModel');
+
+if (!$viewModel) {
+    return;
+}
+
+$entity = $viewModel->getMultipleStoreEntity();
+?>
+<?php foreach ($entity->getStoreIds() as $storeId): ?>
+    <?php $hreflang = $entity->getStoreLanguage($storeId); ?>
+    <?php $storeUrl = $entity->getStoreUrl($storeId); ?>
+    <?php if (!$hreflang || !$storeUrl): ?>
+        <?php continue; ?>
+    <?php endif; ?>
+    <link rel="alternate" hreflang="<?php echo $hreflang; ?>" href="<?php echo $storeUrl; ?>"/>
+<?php endforeach; ?>
